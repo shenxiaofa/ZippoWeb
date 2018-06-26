@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- <div class="page-mask landscape hide">
+        <div class="halo"></div>
+        <div class="top"></div>
+        <h1 class="logo" title="zippo"></h1>
+        <div class="rotate">
+            <img src="images/rotate_back.png" alt="">
+            <p>请竖置您手机</p>
+        </div>
+    </div> -->
+
+    <div class="page-photo landscape">
+        <div class="halo"></div>
+        <div class="picbox">
+            <div class="corner">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <img src="images/font/font_6.png" alt=""> 
+            <div class="photo"></div>
+            <input class="photo-input" type="file" accept="image/*;" capture="camera">
+            <canvas class="user"></canvas>
+        </div>
+    </div>
+
+    <div class="page-photo-after landscape hide spc">
+        <!-- <div class="back"></div> -->
+        <div class="halo"></div>
+        <!-- <div class="top up"></div>
+        <h1 class="logo up" title="zippo"></h1>
+        <div class="picbox">
+            <div class="corner">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <canvas class="user"></canvas>
+        </div> -->
+        <div class="form">
+            <input class="name" type="text" placeholder="姓名" autofocus="autofocus">
+            <input class="phone" type="text" placeholder="电话" autofocus="autofocus">
+            <input class="address" type="text" placeholder="地址" autofocus="autofocus">
+            <input class="shop" type="text" placeholder="购买店铺" autofocus="autofocus">
+        </div>
+        <button class="button submit">提交</button>
+        <img class="success hide" src="images/font/font_7.png" alt="">
+    </div>
+
+    <!-- 竖屏遮罩 -->
+    <div class="page-mask portrait">
+            <div class="halo"></div>
+            <div class="top"></div>
+            <h1 class="logo" title="zippo"></h1>
+            <div class="rotate">
+                <img src="images/rotate.png" alt="">
+                <p>请横置您手机</p>
+            </div>
+            <div class="mask-wx hide">
+                <div class="tip-wx">
+                    <p>ios.11版本请点击右上角的</p>
+                    <p class="inline-row">
+                        <img src="images/wx_more.png" alt="">
+                        <span>使用</span>
+                        <img src="images/wx_exp.png" alt="">
+                        <span>浏览器打开</span>
+                    </p>
+                </div>
+                <div class="arrow-wx"></div>
+            </div>
+        </div>
+
+    <script src="js/plugins/zepto.min.js"></script>
+    <script src="js/plugins/layer_mobile/layer.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/main.js"></script>
+    <script>
+
+        window.isForce = "landscape";
+
+        function isWeiXin() {
+            var ua = window.navigator.userAgent.toLowerCase();
+            if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+
+        if (isWeiXin()) {
+            //alert
+            // layer.open({
+            //     content: '请点击右上角菜单，使用浏览器查看！',
+            //     btn: '我知道了',
+            //     shadeClose: false
+            // });
+            $('.mask-wx').removeClass('hide');
+        } else {
+            $('.mask-wx').addClass('hide');
+        }
+
+        $.fixedInput();
+        $.submitUserInfo(function () {
+            // $('.page-photo').addClass('hide spc');
+            // $('.page-photo-after').removeClass('hide spc');
+            // $('.form').find('p').removeClass('hide');
+            // $('.form').find('p').siblings().addClass('hide');
+            $('.form').addClass('hide');
+            $('.submit').addClass('hide');
+            $('.success').removeClass('hide');
+        });
+        $.updatePhoto(function () {
+            $('.page-photo').addClass('hide spc');
+            $('.page-photo-after').removeClass('hide spc');
+            $('.back').click(function() {
+                $('.page-photo').removeClass('hide spc');
+                $('.page-photo-after').addClass('hide spc');
+                // $('.page-photo-after').addClass('spc');
+                // $('.page-photo-after').addClass('hide');
+                // $('.page-photo-after>.picbox').removeClass('hide');
+                // $('.form').find('p').addClass('hide');
+                // $('.form').find('p').siblings().removeClass('hide');
+                $('.photo-input').wrap('<form>').closest('form').get(0).reset();
+            });
+        });
+    </script>
+</body>
+
+</html>

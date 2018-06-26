@@ -1,0 +1,1082 @@
+    //依赖
+    @import "reset";
+    //变量
+    @rem: 20rem;
+    @w: 750;
+    @h: 1334;
+    @fontSize: 0.5rem;
+    @bgColor: #000;
+    @bgColorGray: #ccc;
+    @bgColorInput: #f5f5f5;
+    @shadowColor: rgba(255, 255, 255, .15);
+    @textColor: rgba(255, 255, 255, .4);
+    @borderColor: #909090;
+    //混合
+    .fullLayout() {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .Transform(@t) {
+        -webkit-transform: @t;
+        -moz-transform: @t;
+        -ms-transform: @t;
+        -o-transform: @t;
+        transform: @t;
+    }
+    
+    .Transition(@c, @d: 0.8s) {
+        -webkit-transition: @c @d;
+        -moz-transition: @c @d;
+        -ms-transition: @c @d;
+        -o-transition: @c @d;
+        transition: @c @d;
+    }
+    
+    .Animation(@name, @d, @t, @f: linear) {
+        -webkit-animation: @name @d @t @f;
+        -moz-animation: @name @d @t @f;
+        -ms-animation: @name @d @t @f;
+        -o-animation: @name @d @t @f;
+        animation: @name @d @t @f;
+    }
+    
+    .Background-radial-gradient() {
+        background-image: -webkit-radial-gradient(circle, @shadowColor, rgba(255, 255, 255, 0) 50%);
+        background-image: -moz-radial-gradient(circle, @shadowColor, rgba(255, 255, 255, 0) 50%);
+        background-image: -ms-radial-gradient(circle, @shadowColor, rgba(255, 255, 255, 0) 50%);
+        background-image: -o-radial-gradient(circle, @shadowColor, rgba(255, 255, 255, 0) 50%);
+        background-image: radial-gradient(circle, @shadowColor, rgba(255, 255, 255, 0) 50%);
+    }
+    
+    body {
+        background: @bgColor;
+    }
+    
+    //常规
+    .portrait {
+        .fullLayout();
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1000;
+        &.page-mask {
+            background: @bgColor;
+            .mask-wx{
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1;
+                background: rgba(0, 0, 0, .9);
+                .tip-wx{
+                    @width: 310 / @w * @rem;
+                    @height: 90 / @w * @rem;
+                    width: @width;
+                    height: @height;
+                    position: absolute;
+                    top: 10%;
+                    right: 12%;
+                    font-size: @fontSize + 0.2;
+                    color: @bgColorGray;
+                    text-align: left;
+
+                    p{
+                        line-height: 40 / @w * @rem;
+                        &.inline-row>*{
+                            display: inline-block;
+                            vertical-align: middle;
+                            margin-right: 3px;
+                        }
+                        img:nth-of-type(1){
+                            width: 44 / @w * @rem;
+                        }
+                        img:nth-of-type(2){
+                            width: 34 / @w * @rem;
+                        }
+                    }
+                }
+                .arrow-wx{
+                    @width: 50 / @w * @rem;
+                    @height: 68 / @w * @rem;
+                    width: @width;
+                    height: @height;
+                    position: absolute;
+                    top: 8%;
+                    right: 4%;
+                    background: url(../images/wx_arrow.png) no-repeat center center;
+                    background-size: 100% 100%;
+                }
+            }
+        }
+        &.page-photo-after{
+            background: #000;
+        }
+        &.styleHandler {
+            .top {
+                display: none;
+            }
+            .logo {
+                top: 36%;
+            }
+        }
+        .halo {
+            .fullLayout();
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 1;
+            .Background-radial-gradient();
+        }
+        .top {
+            @width: 160 / @w * @rem;
+            @height: 360 / @w * @rem;
+            width: @width;
+            height: @height;
+            position: absolute;
+            top: 30%;
+            left: (20rem - @width) / 2;
+            z-index: 2;
+            background: url(../images/top.png) no-repeat center center;
+            background-size: contain;
+            &.up {
+                top: 12%;
+            }
+        }
+        .logo {
+            @width: 160 / @w * @rem;
+            @height: 54 / @w * @rem;
+            width: @width;
+            height: @height;
+            position: absolute;
+            top: 62%;
+            left: (20rem - @width) / 2;
+            z-index: 2;
+            background: url(../images/logo.png) no-repeat center center;
+            background-size: 100% 100%;
+            &.up {
+                top: 40%;
+            }
+            &.down {
+                top: 74%;
+            }
+        }
+        .rotate {
+            @width: 300 / @w * @rem;
+            width: @width;
+            position: absolute;
+            top: 80%;
+            left: (20rem - @width) / 2;
+            z-index: 2;
+            text-align: center;
+            img {
+                @width: 42 / @w * @rem;
+                @height: 44 / @w * @rem;
+                width: @width;
+                height: @height;
+                margin-bottom: 0.5rem;
+            }
+            p {
+                color: @textColor;
+                font-size: @fontSize + 0.3rem;
+            }
+        }
+        .update {
+            @width: 540 / @w * @rem;
+            @height: 239 / @w * @rem;
+            padding-top: 0.8rem;
+            width: @width;
+            height: @height;
+            position: absolute;
+            top: 74%;
+            left: (20rem - @width) / 2;
+            z-index: 2;
+            background: @bgColorGray;
+            border-radius: 16px;
+            font-size: @fontSize + 0.3rem;
+            text-align: center;
+            img {
+                @width: 68 / @w * @rem;
+                @height: 63 / @w * @rem;
+                margin-top: 0.5rem;
+                width: @width;
+                height: @height;
+            }
+            p>span:nth-of-type(1) {
+                font-size: @fontSize + 0.5rem;
+            }
+        }
+        .user {
+            @width: 460 / @w * @rem;
+            @height: 636 / @w * @rem;
+            width: @width;
+            height: @height;
+            padding: 4px;
+            background: #fff;
+            position: absolute;
+            top: 12%;
+            left: (20rem - @width) / 2;
+            z-index: 2;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .share-box {
+            @width: 560 / @w * @rem;
+            width: @width;
+            position: absolute;
+            top: 80%;
+            left: (20rem - @width) / 2;
+            z-index: 2;
+            color: #fff;
+            text-align: center;
+            font-size: @fontSize + 0.3rem;
+            p {
+                opacity: 0.7;
+                margin-bottom: 1rem;
+            }
+            img {
+                @width: 42 / @w * @rem;
+                @height: 42 / @w * @rem;
+                width: @width;
+                height: @height;
+            }
+        }
+        .back {
+            @width: 42 / @w * @rem;
+            @height: 42 / @w * @rem;
+            width: @width;
+            height: @height;
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            z-index: 2;
+            background: url(../images/back.png) no-repeat center center;
+            background-size: contain;
+        }
+        .picbox {
+            @width: 510 / @w * @rem;
+            @height: 650 / @w * @rem;
+            width: @width;
+            height: @height;
+            margin: 0 auto;
+            margin-top: 100 / @w * @rem;
+            position: relative;
+            font-size: 0;
+            z-index: 2;
+            .corner {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                span {
+                    @width: 20 / @w * @rem;
+                    @height: 20 / @w * @rem;
+                    width: @width;
+                    height: @height;
+                    position: absolute;
+                    &:nth-of-type(1) {
+                        border-left: 4/@w*@rem solid @bgColorInput;
+                        border-top: 4/@w*@rem solid @bgColorInput;
+                        left: 0;
+                        top: 0;
+                    }
+                    &:nth-of-type(2) {
+                        border-right: 4/@w*@rem solid @bgColorInput;
+                        border-top: 4/@w*@rem solid @bgColorInput;
+                        right: 0;
+                        top: 0;
+                    }
+                    &:nth-of-type(3) {
+                        border-right: 4/@w*@rem solid @bgColorInput;
+                        border-bottom: 4/@w*@rem solid @bgColorInput;
+                        right: 0;
+                        bottom: 0;
+                    }
+                    &:nth-of-type(4) {
+                        border-left: 4/@w*@rem solid @bgColorInput;
+                        border-bottom: 4/@w*@rem solid @bgColorInput;
+                        left: 0;
+                        bottom: 0;
+                    }
+                }
+            }
+            p {
+                padding-top: 200 / @w * @rem;
+                width: 100%;
+                text-align: center;
+                color: @bgColorInput;
+                font-size: @fontSize + 0.3;
+            }
+            .photo {
+                @width: 70 / @h * @rem;
+                @height: 64 / @h * @rem;
+                width: @width;
+                height: @height;
+                background: url(../images/photo.png) no-repeat center center;
+                background-size: cover;
+                position: absolute;
+                left: 50%;
+                bottom: 60 / @h * @rem;
+                z-index: 3;
+                .Transform(translateX(-50%));
+            }
+            .photo-input{
+                width: 0;
+                height: 0;
+                overflow: hidden;
+            }
+            .user{
+                @width: (510 - 8) / @w * @rem;
+                @height: (650 - 8) / @w * @rem;
+                width: @width;
+                height: @height;
+                background: transparent;
+                position: absolute;
+                left: 4 / @w * @rem;
+                top: 4 / @w * @rem;
+                z-index: 2;
+            }
+        }
+        .form {
+            @width: 100%;
+            @height: 480 / @w * @rem;
+            padding: 40/@w*@rem 0;
+            width: @width;
+            height: @height;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 2;
+            background: url(../images/form_bg.png) no-repeat center center;
+            background-size: cover;
+            // border-radius: 16px;
+            font-size: @fontSize + 0.3rem;
+            text-align: center;
+            input {
+                margin: 0 auto 20/@w*@rem;
+                width: 80%;
+                @height: 64 / @w * @rem;
+                height: @height;
+                line-height: @height;
+                border-bottom: 1px solid transparent;
+                color: @borderColor;
+                text-indent: 4px;
+                &:nth-of-type(2) {
+                    border-top: none;
+                }
+                &:nth-of-type(3) {
+                    border-top: none;
+                }
+                &:nth-of-type(4) {
+                    border-top: none;
+                }
+                &:focus{
+                    caret-color:rgb(116, 142, 245);
+                    border-bottom: 1px solid @borderColor;
+                    color: #fff;
+                }
+            }
+            button {
+                width: 100%;
+                color: #fff;
+                font-size: @fontSize + 0.3;
+                text-indent: 6px;
+                letter-spacing: 6px;
+            }
+            p{
+                line-height: 9.8rem;
+                color: #fff;
+                text-indent: 2px;
+                letter-spacing: 2px;
+            }
+        }
+    }
+    
+    .landscape {
+        .fullLayout();
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-size: cover;
+        &.page-1 {
+            background: url(../images/bg/bg_1.jpg) no-repeat center center;
+            background-size: 100% 100%;
+            img {
+                .Transform(scale(0, 0));
+                
+                &.active{
+                    .Animation(zoomin, 1s, 1, ease);
+                    .Transform(scale(1, 1));
+                }
+            }
+        }
+
+        &.page-2 {
+            background: url(../images/bg/bg_2.jpg) no-repeat center center;
+            background-size: 100% 100%; 
+        }
+
+        &.page-3{
+            //background: url(../images/bg/bg_3.jpg) no-repeat center center;
+            background-size: cover;
+            z-index: 1;
+            img {
+                .Transform(scale(0, 0));
+                
+                &.active{
+                    .Animation(zoomin, 1s, 1, ease);
+                    .Transform(scale(1, 1));
+                }
+            }
+        }
+
+        &.page-4 
+        {
+            //background: url(../images/bg/bg_3.jpg) no-repeat center center;
+            //background-size: 100% 100%;
+            z-index: 1;
+            .Transform(translate3d(0, 0, 0));
+            img {
+                &.active{
+                    .Animation(shake, 1.4s, 1, ease);
+                    .Transform(translate3d(0, 0, 0));
+                }
+            }
+        }
+
+        &.page-5 { 
+            z-index: 101;
+            img {
+                .Transform(scale(0, 0));
+                
+                &.active{
+                    .Animation(zoomin, 1s, 1, ease);
+                    .Transform(scale(1, 1));
+                }
+            }
+        }
+
+        &.page-6{
+            //background: url(../images/game_bg.jpg) no-repeat center center;
+            background-size: cover;
+            z-index: 101;
+        }
+        .img-full {
+            @width: 100%;
+            @height: 130 / @h * @rem;
+            width: @width;
+            height: @height;
+            position: absolute;
+            top: 38%;
+            left: 0;
+        }
+
+        .logo{
+
+        }
+
+        &.game-bg{
+            background: url(../images/game_bg.jpg) no-repeat center center;
+            background-size: cover;
+        }
+
+        &.page-load {
+            background: url(../images/load_bg.png) no-repeat center center;
+            background-size: cover;
+            z-index: 200;
+        }
+        &.page-game {
+            background: url(../images/game_bg.jpg) no-repeat center center;
+            background-size: cover;
+            z-index: 10;
+        }
+        &.page-game-no-background {
+            background: none;
+            z-index: 10;
+        }
+
+        &.page-photo-after{
+            background: url(../images/bg/bg_4.jpg) no-repeat center center;
+            background-size: cover;
+
+            .button{
+                z-index: 2;
+                bottom: 2.5%;
+            }
+        }
+        .deg360{
+            @width: 58 / @h * @rem;
+            @height: 36 / @h * @rem;
+            width: @width;
+            height: @height;
+            position: absolute;
+            top: 74 / @h * @rem;
+            left: ( @rem - @width) / 2;
+            background: url(../images/360.png) no-repeat center center;
+            background-size: contain;
+        }
+        .item{
+            @width: 234 / @h * @rem;
+            @height: 232 / @h * @rem;
+            width: @width;
+            height: @height;
+            position: absolute;
+            background: url(../images/game_item.png) no-repeat center center;
+            background-size: contain;
+            &.left{
+                top: ( @rem / @h * @w - @height) / 2;
+                left: 88 / @h * @rem;
+            }
+            &.mid{
+                top: 210 / @h * @rem;
+                left: ( @rem - @width) / 2;
+            }
+            &.right{
+                top: ( @rem / @h * @w - @height) / 2;
+                right: 88 / @h * @rem;
+            }
+        }
+        .gift{
+            @width: 380 / @h * @rem;
+            @height: 342 / @h * @rem;
+            margin: -@height/2 0 0 -@width/2;
+            width: @width;
+            height: @height;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            background: url(../images/zippo.png) no-repeat center center;
+            background-size: contain;
+            // transform-origin: center center;
+            // .Transform(scale(0, 0));
+            // .Transition( cubic-bezier(0.47, 0, 0.745, 0.715), 1s );
+            // .Transform(translate( -50%, -50% ));
+            &.active{
+                // .Transform(scale(1, 1));
+                .Animation(zoomin, 1s, 1, ease);
+                .Transform(scale(1, 1));
+            }
+        }
+        .gift-tip{
+            @width: 230 / @h * @rem;
+            @height: 54 / @h * @rem;
+            width: @width;
+            height: @height;
+            position: absolute;
+            left: 50%;
+            top: 10%;
+            margin-left: -@width/2;
+            background: url(../images/font/font_8.png) no-repeat center center;
+            background-size: contain;
+            .Transform(scale(0, 0));
+            img{
+                @width: 29 / @h * @rem;
+                width: @width;
+                position: absolute;
+                left: 50%;
+                bottom: -30 / @h * @rem;
+                margin-left: -@width/2;
+                .Animation(slide, 1s, infinite);
+            }
+            &.active{
+                .Animation(zoomin, 1s, 1, ease);
+                .Transform(scale(1, 1));
+            }
+        }
+        .gift-msg{
+            @width: 900 / @h * @rem;
+            @height: 44 / @h * @rem;
+            width: @width;
+            height: @height;
+            position: absolute;
+            left: 50%;
+            bottom: 10%;
+            margin-left: -@width/2;
+            background: url(../images/font/font_9.png) no-repeat center center;
+            background-size: contain;
+            .Transform(scale(0, 0));
+            img{
+                @width: 174 / @h * @rem;
+                width: @width;
+                position: absolute;
+                left: 41%;
+                top: 0;
+                margin-left: -@width/2;
+            }
+            &.active{
+                .Animation(zoomin, 1s, 1, ease);
+                .Transform(scale(1, 1));
+            }
+        }
+        .halo {
+            .fullLayout();
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 1;
+            .Background-radial-gradient();
+        }
+        .top {
+            @width: 160 / @h * @rem;
+            @height: 360 / @h * @rem;
+            width: @width;
+            height: @height;
+            position: absolute;
+            top: 6%;
+            left: (20rem - @width) / 2;
+            z-index: 2;
+            background: url(../images/top.png) no-repeat center center;
+            background-size: contain;
+        }
+        .logo {
+            @width: 160 / @h * @rem;
+            @height: 54 / @h * @rem;
+            width: @width;
+            height: @height;
+            position: absolute;
+            top: 56%;
+            left: (20rem - @width) / 2;
+            z-index: 2;
+            background: url(../images/logo.png) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        .rotate {
+            @width: 300 / @h * @rem;
+            width: @width;
+            position: absolute;
+            bottom: 8%;
+            left: (20rem - @width) / 2;
+            z-index: 2;
+            text-align: center;
+            font-size: 0;
+            img {
+                @width: 42 / @w * @rem;
+                @height: 44 / @w * @rem;
+                width: @width;
+                height: @height;
+                margin-bottom: 0.5rem;
+            }
+            p {
+                color: @textColor;
+                font-size: @fontSize;
+            }
+        }
+        .back {
+            @width: 42 / @h * @rem;
+            @height: 42 / @h * @rem;
+            width: @width;
+            height: @height;
+            position: absolute;
+            top: 8%;
+            left: 5%;
+            z-index: 2;
+            background: url(../images/back.png) no-repeat center center;
+            background-size: contain;
+        }
+        .title {
+            @height: 180 / @h * @rem;
+            width: 100%;
+            height: @height;
+            text-align: center;
+            img {
+                margin-top: 3%;
+                @width: 60%;
+                width: @width;
+            }
+        }
+        .text {
+            @height: 66 / @h * @rem;
+            width: 100%;
+            line-height: @height;
+            text-align: center;
+            font-size: @fontSize;
+            color: #fff;
+            opacity: 0.6;
+            position: absolute;
+            left: 0;
+            bottom: 12%;
+            &.blink {
+                .Animation(blink, 2s, infinite)
+            }
+        }
+        .button {
+            @width: 240 / @h * @rem;
+            @height: 64 / @h * @rem;
+            margin-left: -@width/2;
+            width: @width;
+            height: @height;
+            line-height: @height;
+            letter-spacing: 4px;
+            text-indent: 4px;
+            position: absolute;
+            border: 1px solid #fff;
+            border-radius: 12px;
+            color: #fff;
+            left: 50%;
+            bottom: 10%;
+            font-size: @fontSize;
+            opacity: 0.6;
+        }
+        .tip {
+            // @width: 242 / @h * @rem;
+            // @height: 94 / @h * @rem;
+            padding-top: 40 / @h * @rem;
+            width: 100%;
+            // height: @height;
+            text-align: center;
+            font-size: 0;
+            img {
+                @width: 57 / @h * @rem;
+                @height: 36 / @h * @rem;
+                width: @width;
+                height: @height;
+            }
+            p {
+                line-height: 80 / @h * @rem;
+                font-size: @fontSize;
+                color: #fff;
+                letter-spacing: 0.1rem;
+            }
+        }
+        .divider {
+            @width: 170 / @h * @rem;
+            @height: 6 / @h * @rem;
+            margin: 0 auto;
+            width: @width;
+            height: @height;
+            background: url(../images/divider.png) no-repeat center center;
+            background-size: cover;
+        }
+        .circle {
+            @width: 324 / @h * @rem;
+            @height: 116 / @h * @rem;
+            width: @width;
+            height: @height;
+            background: url(../images/halo.png) no-repeat center center;
+            background-size: cover;
+            position: absolute;
+            right: 1.6rem;
+            top: 58%;
+        }
+        .model {
+            width: 30%;
+            position: absolute;
+            left: 10%;
+            top: 36%;
+        }
+        .game-model-1 {
+            @width: 245 / @h * @rem;
+            @height: 394 / @h * @rem;
+            width: @width;
+            height: @height;
+            background: url(../images/game_model1.png) no-repeat center center;
+            background-size: 100% 100%;
+            position: absolute;
+            left: 15%;
+            top: 27%;
+        }
+        .game-model-2 {
+            @width: 786 / @h * @rem;
+            @height: 400 / @h * @rem;
+            width: @width;
+            height: @height;
+            background: url(../images/model.png) no-repeat center center;
+            background-size: 100% 100%;
+            position: absolute;
+            left: 0.7rem;
+            top: 27%;
+        }
+        .game-model-3 {
+            @width: 786 / @h * @rem;
+            @height: 400 / @h * @rem;
+            width: @width;
+            height: @height;
+            background: url(../images/model.png) no-repeat center center;
+            background-size: 100% 100%;
+            position: absolute;
+            left: 0.7rem;
+            top: 27%;
+        }
+        .next {
+            @width: 60 / @h * @rem;
+            @height: 56 / @h * @rem;
+            width: @width;
+            height: @height;
+            background: url(../images/next.png) no-repeat center center;
+            background-size: cover;
+            position: absolute;
+            right: 0.5rem;
+            bottom: 0.5rem;
+        }
+        .time {
+            color: #fff;
+            font-size: @fontSize;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+        .hint {
+            @width: 214 / @h * @rem;
+            @height: 160 / @h * @rem;
+            width: @width;
+            height: @height;
+            position: absolute;
+            left: ( 20rem - @width ) / 2;
+            bottom: 1rem;
+            text-align: center;
+            .schedule {
+                @width: 154 / @h * @rem;
+                @height: 160 / @h * @rem;
+                width: @width;
+                height: @height;
+            }
+            .facula {
+                @width: 44 / @h * @rem;
+                @height: 60 / @h * @rem;
+                width: @width;
+                height: @height;
+                position: absolute;
+                left: 30 / @h * @rem;
+                top: 100 / @h * @rem;
+                z-index: 1;
+            }
+            .pic {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: 1;
+            }
+        }
+        .picbox {
+            @width: 720 / @h * @rem;
+            @height: 450 / @h * @rem;
+            width: @width;
+            height: @height;
+            line-height: @height;
+            margin: -@height/2 0 0 -@width/2;
+            // margin-top: 30 / @h * @rem;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            font-size: 0;
+            z-index: 2;
+            text-align: center;
+            img{
+                @width: 360 / @h * @rem;
+                width: @width;
+                vertical-align: middle;
+            }
+            .corner {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                span {
+                    @width: 20 / @h * @rem;
+                    @height: 20 / @h * @rem;
+                    width: @width;
+                    height: @height;
+                    position: absolute;
+                    &:nth-of-type(1) {
+                        border-left: 4/@h*@rem solid @bgColorInput;
+                        border-top: 4/@h*@rem solid @bgColorInput;
+                        left: 0;
+                        top: 0;
+                    }
+                    &:nth-of-type(2) {
+                        border-right: 4/@h*@rem solid @bgColorInput;
+                        border-top: 4/@h*@rem solid @bgColorInput;
+                        right: 0;
+                        top: 0;
+                    }
+                    &:nth-of-type(3) {
+                        border-right: 4/@h*@rem solid @bgColorInput;
+                        border-bottom: 4/@h*@rem solid @bgColorInput;
+                        right: 0;
+                        bottom: 0;
+                    }
+                    &:nth-of-type(4) {
+                        border-left: 4/@h*@rem solid @bgColorInput;
+                        border-bottom: 4/@h*@rem solid @bgColorInput;
+                        left: 0;
+                        bottom: 0;
+                    }
+                }
+            }
+            p {
+                padding-top: 130 / @h * @rem;
+                width: 100%;
+                text-align: center;
+                color: @bgColorInput;
+                font-size: @fontSize;
+            }
+            .photo {
+                @width: 8%;
+                @height: 12%;
+                width: @width;
+                height: @height;
+                background: url(../images/photo.png) no-repeat center center;
+                background-size: 100% 100%;
+                position: absolute;
+                left: 50%;
+                bottom: -14%;
+                z-index: 3;
+                .Transform(translateX(-50%));
+            }
+            .photo-input{
+                width: 0;
+                height: 0;
+                overflow: hidden;
+            }
+            .user{
+                @width: (720 - 8) / @h * @rem;
+                @height: (450 - 8) / @h * @rem;
+                width: @width;
+                height: @height;
+                // background: transparent;
+                position: absolute;
+                left: 4 / @h * @rem;
+                top: 4 / @h * @rem;
+                z-index: 2;
+            }
+        }
+        .form {
+            @width: 670 / @h * @rem;
+            width: @width;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 2;
+            font-size: @fontSize + 0.3rem;
+            text-align: center;
+            .Transform(translate(-50%, -50%));
+            input {
+                display: block;
+                width: 100%;
+                padding: 0.4rem 0;
+                border-bottom: 2px solid transparent;
+                color: @borderColor;
+                text-indent: 4px;
+                font-size: @fontSize - 0.1rem;
+                &:nth-of-type(2) {
+                    border-top: none;
+                }
+                &:nth-of-type(3) {
+                    border-top: none;
+                }
+                &:nth-of-type(4) {
+                    border-top: none;
+                }
+                &:focus{
+                    caret-color:rgb(116, 142, 245);
+                    border-bottom: 2px solid @borderColor;
+                    color: #fff;
+                }
+                &::placeholder{
+                    font-size: @fontSize - 0.2rem;
+                }
+            }
+        }
+        .success{
+            @width: 266 / @h * @rem;
+            // padding: 40/@w*@rem 0;
+            width: @width;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            .Transform(translate(-50%, -50%));
+        }
+    }
+    
+    @keyframes blink {
+        0% {
+            opacity: 0.6;
+        }
+        20% {
+            opacity: 1;
+        }
+        70% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 0.6;
+        }
+    }
+
+    @keyframes gift-show { 
+        0% {
+            .Transform(translateY(0));
+        } 
+        100% {
+            .Transform(translateY( (@rem / @h * @w - (380 / @h * @rem)) / 2 ));
+        }
+    }
+
+    @keyframes zoomin{
+        0% {
+            .Transform(scale(0, 0));
+        }
+        100% {
+            .Transform(scale(1, 1));
+        }
+    }
+
+    @keyframes slide{
+        0% {
+            .Transform(translateY(0));
+        }
+        100% {
+            .Transform(translateY(30%));
+        }
+    }
+
+    @keyframes zoomoutin{
+        0% {
+            .Transform(scale(2, 2));
+        }
+        100% {
+            .Transform(scale(1, 1));
+        }
+    }
+
+    @keyframes shake{
+        0% {
+            .Transform(translate3d(0, 0, 0));
+        }
+        20% {
+            .Transform(translate3d(10%, 0, 0));
+        }
+        40% {
+            .Transform(translate3d(-8%, 0, 0));
+        }
+        60% {
+            .Transform(translate3d(4%, 0, 0));
+        }
+        80% {
+            .Transform(translate3d(-2%, 0, 0));
+        }
+        100% {
+            .Transform(translate3d(0, 0, 0));
+        }
+    }
+    
+    .renderContainer {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        touch-action: none;
+        z-index: 100;
+        outline: 0;
+    }

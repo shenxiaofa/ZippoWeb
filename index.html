@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- loading -->
+    <div class="page-2 landscape use-camera" id="loading-page">
+        <img class="img-full" src="images/font/font_2.png" alt="">
+        <!--<div class="logo"></div>-->
+        <div id="loading-text" class="text blink">Loading...</div>
+        <button id="startBtn" class="button hide">开始</button>
+    </div>
+
+    <!-- 打开摄像头 -->
+    <div class="page-1 landscape hide spc">
+        <img class="img-full" src="images/font/font_1.png" alt="">
+        <button class="button">打开</button>
+    </div>
+    
+    <!-- 游戏说明 -->
+    <div class="page-3 landscape hide spc use-camera">
+        <img class="img-full" src="images/font/font_3.png" alt="">
+        <button onclick="showGame()" class="button">开始</button>
+    </div>
+
+    <!-- 失败 -->
+    <div class="page-4 landscape hide spc use-camera">
+        <img class="img-full" src="images/font/font_4.png" alt="">
+        <button class="button">再来一次</button>
+    </div>
+
+    <!-- 成功 -->
+    <div class="page-5 landscape hide spc use-camera">
+        <img class="img-full" src="images/font/font_5.png" alt="">
+        <button class="button">领取</button>
+    </div>
+
+    <!-- 锦囊 -->
+    <div class="page-6 landscape use-camera hide spc">
+        <div class="gift-tip">
+            <img class="active" src="images/font/arrow.png" alt="">
+        </div>
+        <div class="gift" ></div>
+        <!--onclick="location.href = 'update.html'"-->
+        <div class="gift-msg">
+            <!--<img src="images/font/prize_1.png" alt="">-->
+        </div>
+        <!-- <button class="button" onclick="location.href = 'update.html'">领取</button> -->
+    </div>
+
+    <!-- game -->
+    <div id="game-page" class="page-game page-7 landscape hide spc use-camera">
+        <!-- <div class="back"></div> -->
+        <!-- <div class="deg360"></div> -->
+       <div class="tip">
+                <p id="tipText">移动相机点选零件</p>
+            </div>
+        <div class="divider"></div>
+        <div class="time">
+            <span>时间：</span>
+            <span class="count">00:30</span>
+        </div>
+        <!-- <div class="hint">
+            <canvas class="schedule"></canvas>
+            <img class="pic" src="images/hint_tobacco.png" alt="">
+        </div> -->
+        <canvas class="hide"></canvas>
+        <!--<div class="item left"></div>-->
+        <div id="targetHint" class="item mid"></div>
+        <!--<div class="item right"></div>-->
+    </div>
+	
+    <canvas id="renderGameCanvas" touch-action="none" class="renderContainer hide"></canvas>
+
+    <!-- 竖屏遮罩 -->
+    <div class="page-mask portrait">
+        <div class="halo"></div>
+        <div class="top"></div>
+        <h1 class="logo" title="zippo"></h1>
+        <div class="rotate">
+            <img src="images/rotate.png" alt="">
+            <p>请横置您手机</p>
+        </div>
+        <div class="mask-wx hide">
+            <div class="tip-wx">
+                <p>ios.11版本请点击右上角的</p>
+                <p class="inline-row">
+                    <img src="images/wx_more.png" alt="">
+                    <span>使用</span>
+                    <img src="images/wx_exp.png" alt="">
+                    <span>浏览器打开</span>
+					<span>[安卓版本部分型号会出现系统兼容问题]</span>
+                </p>
+            </div>
+            <div class="arrow-wx"></div>
+        </div>
+    </div>
+
+    <audio preload="auto" style="width:0;height:0" loop id="aud">
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio preload="auto" style="width:0;height:0" id="openMusic">
+        <source src="open.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio preload="auto" style="width:0;height:0" id="openMusic2">
+        <source src="open.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="js/plugins/zepto.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/plugins/pep.js"></script>
+    <script>
+		//设置窗口为横屏
+        window.isForce = "landscape";
+		//添加微信就绪的监听事件
+        document.addEventListener("WeixinJSBridgeReady", function () {
+			//	开始播放音乐  避免ios不能自动不放音乐的问题
+            document.getElementById("aud").play();
+        }, false);
+		//当页面加载完毕  确保音乐一定会被播放
+        $(document).ready(function () {
+            var aud = document.getElementById("aud");
+            aud.play();
+            aud.loop = true;
+            aud.addEventListener('ended', function () {
+                aud.play();
+            }, false);
+        });
+
+        function showGame() {
+            $('.page-3').addClass('hide spc');
+            $('.page-4').addClass('hide spc');
+            $('.page-5').addClass('hide spc');
+            $('.page-7').removeClass('hide spc');
+            $('#renderGameCanvas').removeClass('hide');
+            game.showGame();
+            var aud = document.getElementById("aud");
+            if (aud.paused)
+                aud.play();
+        }
+    </script>
+    <script src="js/plugins/babylon.custom.js"></script>
+    <script src="js/plugins/Tween.js"></script>
+    <!-- <script src="js/Game.js"></script> -->
+    <script src="js/scene.js"></script>
+    <script src="js/plugins/layer_mobile/layer.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+
+        var game = new Game();
+
+        // 打开摄像头
+        $('.page-1').find('button').on('click', function() {
+            $(this).parent().addClass('hide spc'); 
+            $('.page-3').removeClass('hide spc');
+            $('.page-3').find('img').removeClass('active');
+            $('.page-3').find('img').addClass('active');
+            // game.showGame();
+            game.loadVideo();
+        });
+
+        // loading结束
+        $('.page-2').find('button').on('click', function() {
+            $(this).parent().addClass('hide spc');
+            $('.page-1').removeClass('hide spc');
+            $('.page-1').find('img').removeClass('active');
+            $('.page-1').find('img').addClass('active');
+        });
+
+        // 重来
+        $('.page-4').find('button').on('click', function() {
+            showGame();
+        });
+
+        // 弹出锦囊
+        $('.page-5').find('button').on('click', function() {
+            $(this).parent().addClass('hide spc');
+            $('.page-6').removeClass('hide spc');
+            $('.page-6').find('.gift').removeClass('active');
+            $('.page-6').find('.gift').addClass('active');
+            setTimeout(function() {
+                $('.page-6').find('.gift-tip').removeClass('active');
+                $('.page-6').find('.gift-tip').addClass('active');
+            }, 1100);
+//
+            // var arr = ["一","二","三"];
+            // $('#gift-tip-text').text("祝贺你！获得了"+arr[Math.floor(Math.random()*arr.length)]+"等奖励，快去店里找NPC领取吧！");
+        });
+
+        //点击锦囊
+        $('.page-6').on('click','.gift',function(){
+//            $('.page-6').find('.gift-msg').find('input').attr('src', 'images/font/prize_'+ ( 1 + Math.round(Math.random() * 2) ) +'.png');
+            $('.page-6').find('.gift-msg').removeClass('active');
+            $('.page-6').find('.gift-msg').addClass('active');
+            setTimeout(function() {
+                window.location.href = 'update.html';
+            }, 2200);
+        });
+
+        // $('.gift').removeClass('hide');
+        // $('.gift').slideDown();
+		
+        function isWeiXin() {
+            var ua = window.navigator.userAgent.toLowerCase();
+            if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+
+        if (isWeiXin()) {
+            //alert
+            // layer.open({
+            //     content: '请点击右上角菜单，使用浏览器查看！',
+            //     btn: '我知道了',
+            //     shadeClose: false
+            // });
+            $('.mask-wx').removeClass('hide');
+        } else {
+            $('.mask-wx').addClass('hide');
+        }
+
+
+        // var gameParms = {
+        //     folder: "model/",
+        //     objName: "yd.obj",
+        //     isVisible: true,
+        //     relpaceGameObject: true,
+        //     selectPart: ["S_ZP_C", "S_ZP_A", "S_ZP_B"],
+        //     initPosition: [-190, -50, 0]
+        // }; 
+        //game.addToTask(gameParms);
+
+
+        var resultParms = {
+            folder: "model/",
+            objName: "S_ZP85.obj",
+            isVisible: false,
+            relpaceGameObject: false,
+            initPosition: [5, -25, 0]
+        };
+
+        
+        game.addToTask(resultParms);
+
+        game.startLoad();
+
+
+
+    </script>
+
+
+</body>
+
+</html>
